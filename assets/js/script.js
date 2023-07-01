@@ -1,36 +1,38 @@
 
-
 function getCityName() {
   var cityName = document.querySelector("#searchText").value;
-
   console.log(cityName)
+
   var geocodingApi = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=a58950883dae614383cd128e22972f9c`;
 
   fetch(geocodingApi)
-    .then(function (response) {
-      return response.json();
+    .then(function (res) {
+      return res.json();
     })
     .then(function (data) {
       console.log(data)
-      var lat = data[0].lat;
-      var lon = data[0].lon;
-      console.log(lat, lon);
-      getWeathArr(lat, lon);
+      var latitude = data[0].lat;
+      var longitude = data[0].lon;
+
+      // var lat = latitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+      // var lon = longitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+      console.log(latitude, longitude);
+      getWeathArr(latitude, longitude);
     })
 };
 
-var getWeathArr = function (lat, lon) {
-  var getWeather = `api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=eb0be5e867966a61e1d597337f2ab606`;
+function getWeathArr(latitude, longitude) {
+  var getWeather = `api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c`;
 
   fetch(getWeather)
-    .then(function (response) {
-      return response.json();
+    .then(function (res) {
+      return res.json();
     })
     .then(function (data) {
       console.log(data)
-
     })
 }
+
 
 //  if (cityName) {
 //     // This will run and return to the homepage if there was nothing in the URL query parameter.
