@@ -1,3 +1,9 @@
+var mainContainer = document.querySelector("#mainContainer");
+
+window.onload = function(){
+  mainContainer.style.display = 'none';
+};
+
 var currentWeatherContainer = document.querySelector("#current-weather");
 
 
@@ -43,19 +49,21 @@ function getWeathArr(latitude, longitude) {
       var temp = data.main.temp;
       var feels = data.main.feels_like;
       var wind = data.wind.speed * 3.6;
+      var windSpeed = wind.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
       var humidity = data.main.humidity;
       var icon = data.weather[0].icon;
       var description = data.weather[0].description;
 
       console.log(city, country, temp, feels, wind, humidity, icon, description, date);
-
+      
+      mainContainer.style.display = '';
 
       var currentWeather = `<div class="card shadow-0 border">
       <div class="card-body p-4 mb-4">
         <h4 class="mb-3 sfw-normal">${city}, ${country} (${date})</h4>
         <p>Current temperature: <strong>${temp}°C</strong></p>
         <p>Feels like: <strong>${feels}°C</strong></p>
-        <p>Wind speed: <strong>${wind} km/h</strong></p>
+        <p>Wind speed: <strong>${windSpeed} km/h</strong></p>
         <p>Humidity: <strong>${humidity}%</strong></p>
         <div class="weatherDesc d-flex flex-row align-items-center">
           <p class="mb-0 me-4">${description}</p>
@@ -81,38 +89,38 @@ function getForecast(latitude, longitude) {
 
      
 
-      for (var i = 3; i < data.list.length; i+8) {
-       
+      for (var i = 3; i < data.list.length; i += 8) {
+       console.log(data.list.length);
+
         var unixDate = data.list[i].dt;
         var fullDate = new Date(unixDate * 1000);
         var date = fullDate.toLocaleDateString("en-GB");
         var temp = data.list[i].main.temp;
         var feels = data.list[i].main.feels_like;
         var wind = data.list[i].wind.speed * 3.6;
+        var windSpeed = wind.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
         var humidity = data.list[i].main.humidity;
         
         console.log(temp, feels, wind, humidity, date);
        
-        var forecast = `<div class="row d-flex flex-nowrap justify-content-center align-content-center m-4">
-          <div class="d-flex flex-nowrap justify-content-center">
-            <div class="card d-flex justify-content-center align-items-center p-3">
+        var forecast = `<div class="col-sm-6 d-flex flex-wrap" style="width: 20%">
+            <div class="card p-3">
                 <h5>(${date})</h5>
                 <i class="icon"></i>
-                <div class="weatherDesc d-flex flex-column justify-content-center align-items-center">
+                <div class="weatherDesc">
                   <p>Temperature: <strong>${temp}°C</strong></p>
                   <p>Will feel like: <strong>${feels}°C</strong></p>
-                  <p>Wind speed: <strong>${wind} km/h</strong></p>
+                  <p>Wind speed: <strong>${windSpeed} km/h</strong></p>
                   <p>Humidity: <strong>${humidity}%</strong></p>
                 </div>
             </div>
           </div>
         </div>`
        
-        var forecastContainer = document.querySelector("#forecastContainer");
+        var forecastContainer = document.querySelector("#forecast-container");
 
         forecastContainer.insertAdjacentHTML('beforeend', forecast);
         
-        return;
       }
     })
   // var cityName = data.city.name;

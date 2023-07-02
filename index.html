@@ -17,30 +17,39 @@
 <body>
   <section class="vh-100">
     <header>
-      <h1 class="title d-flex justify-content-center align-items-center mt-4">WeathAarr</h1>
-      <h3 class="mb-4 pb-2 fw-normal d-flex justify-content-center align-items-center mt-4">To navigate the seas of
+      <h1 class="d-flex justify-content-center">WeathAarr</h1>
+      <h3 class="mb-4 pb-2 fw-normal d-flex justify-content-center">Avast ye! To sail the high seas of
         life, ye must know the weathArr at your destination!</h3>
+        <section class="input-group rounded m-3 d-flex align-items-center justify-content-center" style="width: 400px;">
+          <input type="search" id="searchText" class="searchValue form-control rounded" placeholder="X"
+            aria-label="Search" aria-describedby="search-addon" />
+          <a href="#!" type="button" onclick="getCityName()">
+            <span class="input-group-text border-0 fw-bold" style="font-size: larger;" id="search-addon">
+              Land Ho!
+            </span>
+          </a>
+        </section>
+        <nav>
+
+        </nav>
     </header>
-    <div class="container py-5 h-75">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+  
+    <main id="mainContainer" class="container py-5 h-75">
+      <div class="row d-flex justify-content-center align-items-center">
+        <h3 class="current-weather d-flex justify-content-center">Current Conditions:</h3>
         <div id="current-weather" class="col-md-8 col-lg-6 col-xl-4">
+          <h3 class="row d-flex justify-content-center align-items-center">
+            
+          </h3>
 
-          <div class="input-group rounded m-3">
-            <input type="search" id="searchText" class="searchValue form-control rounded" placeholder="City"
-              aria-label="Search" aria-describedby="search-addon" />
-            <a href="#!" type="button" onclick="getCityName()">
-              <span class="input-group-text border-0 fw-bold" id="search-addon">
-                Land Ho!
-              </span>
-            </a>
-          </div>
-          <section id="forecastContainer">
-            <h3 class="d-flex justify-content-center">5-Day Forecast:</h3>
-          </section>
         </div>
-      </div>
+        <section>
+          <h3 class="future-weather d-flex justify-content-center m-3">Future Conditions:</h3>
+          <div id="forecast-container" class="row d-flex justify-content-center">
+           </div>
+        </section>
 
-    </div>
+    </main>
   </section>
 
 

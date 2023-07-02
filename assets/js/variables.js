@@ -26,7 +26,7 @@ if (data.weather.main == 'Clouds') {
 
   var storm = `<i class="fa-regular fa-cloud-bolt fa-2x"></i>`
   var weatherDesc = document.querySelector(".weatherDesc")
-  weatherDesc.insertAdjacentHTML('beforeend', storm;
+  weatherDesc.insertAdjacentHTML('beforeend', storm);
 
 } else if (data.weather.main == "Snow") {
 
