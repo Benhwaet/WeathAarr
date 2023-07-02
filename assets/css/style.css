@@ -1,0 +1,15 @@
+/* Brilliant cloud button posted on stackoverflow forum by username:Harry <https://stackoverflow.com/questions/30919053/creating-a-responsive-cloud-shape>  */
+svg {
+    height: 50%;
+    width: 50%;
+  }
+  path {
+    fill: white;
+    stroke: black;
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  path:hover {
+    fill: aliceblue;
+    stroke: lightskyblue;
+  }

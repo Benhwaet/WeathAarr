@@ -19,10 +19,10 @@
     <header>
       <h1 class="d-flex justify-content-center">WeathAarr</h1>
       <h3 class="mb-4 pb-2 fw-normal d-flex justify-content-center">Avast ye! To sail the high seas of
-        life, ye must know the weathArr at your destination!</h3>
+        life, ye must know the weathArr at yer destination!</h3>
         <section class="input-group rounded m-3 d-flex align-items-center justify-content-center" style="width: 400px;">
           <input type="search" id="searchText" class="searchValue form-control rounded" placeholder="X"
-            aria-label="Search" aria-describedby="search-addon" />
+            aria-label="Search" aria-describedby="search-addon" onclick="clearText()"/>
           <a href="#!" type="button" onclick="getCityName()">
             <span class="input-group-text border-0 fw-bold" style="font-size: larger;" id="search-addon">
               Land Ho!
@@ -30,14 +30,14 @@
           </a>
         </section>
         <nav>
-
+          
         </nav>
     </header>
   
     <main id="mainContainer" class="container py-5 h-75">
       <div class="row d-flex justify-content-center align-items-center">
         <h3 class="current-weather d-flex justify-content-center">Current Conditions:</h3>
-        <div id="current-weather" class="col-md-8 col-lg-6 col-xl-4">
+        <div id="current-weather" class="col-md-4">
           <h3 class="row d-flex justify-content-center align-items-center">
             
           </h3>
