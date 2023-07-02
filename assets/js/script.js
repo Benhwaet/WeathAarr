@@ -1,13 +1,18 @@
 var mainContainer = document.querySelector("#mainContainer");
+var currentWeatherContainer = document.querySelector("#current-weather");
+var forecastContainer = document.querySelector("#forecast-container");
 
-window.onload = function(){
+window.onload = function () {
   mainContainer.style.display = 'none';
 };
 
-var currentWeatherContainer = document.querySelector("#current-weather");
+function clearText() {
+  document.querySelector("#searchText").value = '';
+}
 
 
 function getCityName() {
+
   var cityName = document.querySelector("#searchText").value;
   console.log(cityName);
 
@@ -32,6 +37,10 @@ function getCityName() {
 
 function getWeathArr(latitude, longitude) {
 
+  while (currentWeatherContainer.firstChild) {
+    currentWeatherContainer.removeChild(currentWeatherContainer.firstChild);
+  };
+
   var getWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
 
   fetch(getWeather)
@@ -41,10 +50,14 @@ function getWeathArr(latitude, longitude) {
     .then(function (data) {
       console.log(data)
 
-      var unixDate= data.dt;
+      var unixDate = data.dt;
       var fullDate = new Date(unixDate * 1000);
       var date = fullDate.toLocaleDateString("en-GB");
       var city = data.name;
+      var cityId = data.id;
+
+      console.log(cityId)
+
       var country = data.sys.country;
       var temp = data.main.temp;
       var feels = data.main.feels_like;
@@ -52,31 +65,53 @@ function getWeathArr(latitude, longitude) {
       var windSpeed = wind.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
       var humidity = data.main.humidity;
       var icon = data.weather[0].icon;
+      // from samu101108 in an explanation on how to use the openweathermap API weather icon 
+      // <https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon> 
+      var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
       var description = data.weather[0].description;
+      console.log(description);
+
+      var iconDesc = description.charAt(0).toUpperCase() + description.slice(1);
+      console.log(iconDesc)
 
       console.log(city, country, temp, feels, wind, humidity, icon, description, date);
-      
+
       mainContainer.style.display = '';
 
-      var currentWeather = `<div class="card shadow-0 border">
-      <div class="card-body p-4 mb-4">
-        <h4 class="mb-3 sfw-normal">${city}, ${country} (${date})</h4>
+      var currentWeather = `<div class="card shadow-0 border d-flex justify-content-center">
+      <div class="card-body p-4>
+        <h4 class="mb-3 sfw-normal" style="font-size: larger;"><strong>${city}, ${country} (${date})</strong></h4>
         <p>Current temperature: <strong>${temp}°C</strong></p>
         <p>Feels like: <strong>${feels}°C</strong></p>
         <p>Wind speed: <strong>${windSpeed} km/h</strong></p>
         <p>Humidity: <strong>${humidity}%</strong></p>
         <div class="weatherDesc d-flex flex-row align-items-center">
-          <p class="mb-0 me-4">${description}</p>
-          <i class="fas fa-cloud fa-2x" style="color: #eee;"></i>
+          <p>${iconDesc}</p>
+          <img class="weatherIcon" src="${iconUrl}">
         </div>
       </div>
     </div>`
 
-        currentWeatherContainer.insertAdjacentHTML('afterbegin', currentWeather);
+      currentWeatherContainer.insertAdjacentHTML('afterbegin', currentWeather);
+
+      var searchHistory = `<button class="citySearchBtn btn rounded">${city}, ${country}</button>`;
+
+      var navbar = document.querySelector("nav");
+
+      navbar.insertAdjacentHTML('afterbegin', searchHistory);
+
+      localStorage.setItem`("city.${cityId}", ${city})`;
+
     })
+  var cityName = '';
+  return cityName;
 };
 
 function getForecast(latitude, longitude) {
+
+  while (forecastContainer.firstChild) {
+    forecastContainer.removeChild(forecastContainer.firstChild);
+  };
 
   var forecastApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
 
@@ -87,10 +122,8 @@ function getForecast(latitude, longitude) {
     .then(function (data) {
       console.log(data)
 
-     
-
       for (var i = 3; i < data.list.length; i += 8) {
-       console.log(data.list.length);
+        console.log(data.list.length);
 
         var unixDate = data.list[i].dt;
         var fullDate = new Date(unixDate * 1000);
@@ -100,38 +133,38 @@ function getForecast(latitude, longitude) {
         var wind = data.list[i].wind.speed * 3.6;
         var windSpeed = wind.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
         var humidity = data.list[i].main.humidity;
-        
+        var icon = data.list[i].weather[0].icon;
+        // from samu101108 in an explanation on how to use the openweathermap API weather icon 
+        // <https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon> 
+        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+        var description = data.list[i].weather[0].description;
+        console.log(description);
+  
+        var iconDesc = description.charAt(0).toUpperCase() + description.slice(1);
+        console.log(iconDesc)
+
         console.log(temp, feels, wind, humidity, date);
-       
+
         var forecast = `<div class="col-sm-6 d-flex flex-wrap" style="width: 20%">
             <div class="card p-3">
                 <h5>(${date})</h5>
                 <i class="icon"></i>
-                <div class="weatherDesc">
+              <div class="weatherDesc">
                   <p>Temperature: <strong>${temp}°C</strong></p>
                   <p>Will feel like: <strong>${feels}°C</strong></p>
                   <p>Wind speed: <strong>${windSpeed} km/h</strong></p>
                   <p>Humidity: <strong>${humidity}%</strong></p>
-                </div>
+                  <div class="weatherDesc d-flex flex-row align-items-center">
+                  <p>${iconDesc}</p>
+                  <img class="weatherIcon" src="${iconUrl}">
+              </div>
             </div>
-          </div>
-        </div>`
-       
+          </div>`
+
         var forecastContainer = document.querySelector("#forecast-container");
 
         forecastContainer.insertAdjacentHTML('beforeend', forecast);
-        
+
       }
     })
-  // var cityName = data.city.name;
-  // var date = data.list[0].dt_text;
-  // var description = data.list[0].weather[0].description;
-  // var icon = data.list[0].weather[0].icon;
-  // var currentTemp = data.list[0].main.temp;
-  // var feelsLike = data.list[0].main.feels_like;
-  // var wind = data.list[0].wind.speed;
-  // var humidity = data.list[0].main.humidity;
-
-  // console.log(cityName, date, description, icon, currentTemp, feelsLike, wind, humidity);
 };
-
