@@ -12,77 +12,31 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
   <!-- MDB -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
   <section class="vh-100">
     <header>
-    <h1 class="title d-flex justify-content-center align-items-center mt-4">WeathAarr</h1>
-    <h3 class="mb-4 pb-2 fw-normal d-flex justify-content-center align-items-center mt-4">To navigate the seas of life, ye must know the weathArr at your destination!</h3>
+      <h1 class="title d-flex justify-content-center align-items-center mt-4">WeathAarr</h1>
+      <h3 class="mb-4 pb-2 fw-normal d-flex justify-content-center align-items-center mt-4">To navigate the seas of
+        life, ye must know the weathArr at your destination!</h3>
     </header>
     <div class="container py-5 h-75">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div id="current-weather" class="col-md-8 col-lg-6 col-xl-4">
 
-          
-
           <div class="input-group rounded m-3">
-            <input type="search" id="searchText" class="searchValue form-control rounded" placeholder="City" aria-label="Search"
-              aria-describedby="search-addon" />
+            <input type="search" id="searchText" class="searchValue form-control rounded" placeholder="City"
+              aria-label="Search" aria-describedby="search-addon" />
             <a href="#!" type="button" onclick="getCityName()">
               <span class="input-group-text border-0 fw-bold" id="search-addon">
                 Land Ho!
               </span>
             </a>
           </div>
-          <div class="row justify-content-between align-items-center">
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                 
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
+          <section id="forecastContainer">
+            <h3 class="d-flex justify-content-center">5-Day Forecast:</h3>
+          </section>
         </div>
       </div>
 

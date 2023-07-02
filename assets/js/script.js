@@ -16,17 +16,17 @@ function getCityName() {
       var latitude = data[0].lat;
       var longitude = data[0].lon;
 
-      var lat = latitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-      var lon = longitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
-      console.log(lat, lon);
-      getWeathArr(lat, lon);
-      getForecast(lat, lon);
+      // var lat = latitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+      // var lon = longitude.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
+      // console.log(lat, lon);
+      getWeathArr(latitude, longitude);
+      getForecast(latitude, longitude);
     })
 };
 
-function getWeathArr(lat, lon) {
+function getWeathArr(latitude, longitude) {
 
-  var getWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
+  var getWeather = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
 
   fetch(getWeather)
     .then(function (res) {
@@ -35,29 +35,31 @@ function getWeathArr(lat, lon) {
     .then(function (data) {
       console.log(data)
 
+      var unixDate= data.dt;
+      var fullDate = new Date(unixDate * 1000);
+      var date = fullDate.toLocaleDateString("en-GB");
       var city = data.name;
       var country = data.sys.country;
       var temp = data.main.temp;
       var feels = data.main.feels_like;
-      var wind = data.wind.speed;
+      var wind = data.wind.speed * 3.6;
       var humidity = data.main.humidity;
       var icon = data.weather[0].icon;
       var description = data.weather[0].description;
 
-      console.log(city, country, temp, feels, wind, humidity, icon, description);
+      console.log(city, country, temp, feels, wind, humidity, icon, description, date);
+
 
       var currentWeather = `<div class="card shadow-0 border">
       <div class="card-body p-4 mb-4">
-
-        <h4 class="mb-1 sfw-normal">${city}, ${country}</h4>
-        <p class="mb-2">Current temperature: <strong>${temp}°C</strong></p>
+        <h4 class="mb-3 sfw-normal">${city}, ${country} (${date})</h4>
+        <p>Current temperature: <strong>${temp}°C</strong></p>
         <p>Feels like: <strong>${feels}°C</strong></p>
         <p>Wind speed: <strong>${wind} km/h</strong></p>
         <p>Humidity: <strong>${humidity}%</strong></p>
-
-        <div class="d-flex flex-row align-items-center">
+        <div class="weatherDesc d-flex flex-row align-items-center">
           <p class="mb-0 me-4">${description}</p>
-          <i class="fas fa-cloud fa-3x" style="color: #eee;"></i>
+          <i class="fas fa-cloud fa-2x" style="color: #eee;"></i>
         </div>
       </div>
     </div>`
@@ -66,9 +68,9 @@ function getWeathArr(lat, lon) {
     })
 };
 
-function getForecast(lat, lon) {
+function getForecast(latitude, longitude) {
 
-  var forecastApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
+  var forecastApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
 
   fetch(forecastApi)
     .then(function (res) {
@@ -76,8 +78,43 @@ function getForecast(lat, lon) {
     })
     .then(function (data) {
       console.log(data)
-    })
 
+     
+
+      for (var i = 3; i < data.list.length; i+8) {
+       
+        var unixDate = data.list[i].dt;
+        var fullDate = new Date(unixDate * 1000);
+        var date = fullDate.toLocaleDateString("en-GB");
+        var temp = data.list[i].main.temp;
+        var feels = data.list[i].main.feels_like;
+        var wind = data.list[i].wind.speed * 3.6;
+        var humidity = data.list[i].main.humidity;
+        
+        console.log(temp, feels, wind, humidity, date);
+       
+        var forecast = `<div class="row d-flex flex-nowrap justify-content-center align-content-center m-4">
+          <div class="d-flex flex-nowrap justify-content-center">
+            <div class="card d-flex justify-content-center align-items-center p-3">
+                <h5>(${date})</h5>
+                <i class="icon"></i>
+                <div class="weatherDesc d-flex flex-column justify-content-center align-items-center">
+                  <p>Temperature: <strong>${temp}°C</strong></p>
+                  <p>Will feel like: <strong>${feels}°C</strong></p>
+                  <p>Wind speed: <strong>${wind} km/h</strong></p>
+                  <p>Humidity: <strong>${humidity}%</strong></p>
+                </div>
+            </div>
+          </div>
+        </div>`
+       
+        var forecastContainer = document.querySelector("#forecastContainer");
+
+        forecastContainer.insertAdjacentHTML('beforeend', forecast);
+        
+        return;
+      }
+    })
   // var cityName = data.city.name;
   // var date = data.list[0].dt_text;
   // var description = data.list[0].weather[0].description;
