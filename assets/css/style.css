@@ -1,5 +1,75 @@
-/* Brilliant cloud button posted on stackoverflow forum by username:Harry <https://stackoverflow.com/questions/30919053/creating-a-responsive-cloud-shape>  */
-svg {
+
+h1, h2, h3, h4, h5, span, footer {
+  font-family: fantasy;
+  font-weight: bolder;
+}
+
+#search-addon {
+  color: rgb(0, 0, 0);
+}
+
+  main {
+    width: 100%;
+    background: url(./../images/waterfall-ship2.jpg) no-repeat center fixed;
+    background-size: cover;
+    background-color: navy;
+  }
+
+  header {
+    background: url(./../images/1.png) no-repeat center;
+    background-size: cover;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+    height: 275px;
+  }
+  header.background {
+    position: relative;
+    z-index: -1;
+  }
+
+  button {
+    color: rgb(111, 26, 26);
+    font-weight: bolder;
+    position: relative;
+    margin-top: -100px;
+    background-color: rgb(255, 226, 163);
+    z-index: +1;
+  }
+
+  ul {
+    font-family: cursive;
+  }
+
+  .footText {
+    margin-left: 55%;
+  }
+
+  footer {
+    background: url(./../images/2.png) no-repeat center;
+    background-size: cover;
+    color: rgb(0, 0, 0);
+    height: 50px;
+    position: relative;
+    font-weight: 900;
+  } */
+
+  .footText {
+    opacity: 100%;
+  }
+
+ .card {
+    background: url(./../images/map-6948875_640.png) no repeat center fixed;
+    background-size: cover;
+  }
+
+  .title-weather {
+    color: gold;
+  }
+
+
+
+  /* Brilliant cloud button posted on stackoverflow forum by username:Harry <https://stackoverflow.com/questions/30919053/creating-a-responsive-cloud-shape>  */
+  svg {
     height: 50%;
     width: 50%;
   }
@@ -13,3 +83,8 @@ svg {
     fill: aliceblue;
     stroke: lightskyblue;
   }
+
+  @media screen and (max-width: 992px) {
+   
+
+  } 
