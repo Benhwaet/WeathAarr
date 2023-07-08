@@ -4,7 +4,7 @@ var currentWeatherContainer = document.querySelector("#current-weather");
 var forecastContainer = document.querySelector("#forecast-container");
 var weatherHeader = document.querySelector("#title_weather");
 var navbar = document.querySelector("nav");
-console.log(cityId)
+
 //Clears text in the form textbox when clicked on, usually the previous city searched, 
 //to make way for new search
 function clearText() {
@@ -92,7 +92,7 @@ function getWeathArr(latitude, longitude) {
       var icon = data.weather[0].icon;
       // from samu101108 in an explanation on how to use the openweathermap API weather icon 
       // <https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon> 
-      var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+      var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png";
       var description = data.weather[0].description;
 
       //Changing first letter of description text to uppercase
@@ -138,7 +138,7 @@ function getForecast(latitude, longitude) {
     forecastContainer.removeChild(forecastContainer.firstChild);
   };
 
-  var forecastApi = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
+  var forecastApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=a58950883dae614383cd128e22972f9c&units=metric`;
 
   fetch(forecastApi)
     .then(function (res) {
@@ -161,7 +161,7 @@ function getForecast(latitude, longitude) {
         var icon = data.list[i].weather[0].icon;
         // from samu101108 in an explanation on how to use the openweathermap API weather icon 
         // <https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon> 
-        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png";
+        var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png";
         var description = data.list[i].weather[0].description;
 
         var iconDesc = description.charAt(0).toUpperCase() + description.slice(1);
