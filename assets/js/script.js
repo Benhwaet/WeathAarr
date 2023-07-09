@@ -4,7 +4,7 @@ var currentWeatherContainer = document.querySelector("#current-weather");
 var forecastContainer = document.querySelector("#forecast-container");
 var weatherHeader = document.querySelector("#title_weather");
 var navbar = document.querySelector("nav");
-console.log(cityId)
+
 //Clears text in the form textbox when clicked on, usually the previous city searched, 
 //to make way for new search
 function clearText() {
