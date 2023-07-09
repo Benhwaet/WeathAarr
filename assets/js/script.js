@@ -122,7 +122,7 @@ function getWeathArr(latitude, longitude) {
               <li>Humidity: <strong>${humidity}%</strong></li>
               <li class="weatherDesc d-flex flex-row align-items-center">
                 <p>${iconDesc}</p>
-                <img class="weatherIcon" src="${iconUrl}">
+                <img class="weatherIcon" src="${iconUrl}" alt="icon to match current weather conditions">
               </li>
             </ul>
         </div>
@@ -132,7 +132,7 @@ function getWeathArr(latitude, longitude) {
       currentWeatherContainer.insertAdjacentHTML('afterbegin', currentWeather);
 
 
-      var searchHistory = `<button id="${cityId}" class="search-history btn primaryBtn" 
+      var searchHistory = `<button id="${cityId}" class="search-history btn primaryBtn ml-1" 
       style="background-color: black; color: white" onclick="getCityInfo(${cityId})">${city}</button>`;
       
       localStorage.setItem(cityId, searchHistory);
