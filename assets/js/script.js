@@ -5,6 +5,8 @@ var forecastContainer = document.querySelector("#forecast-container");
 var weatherHeader = document.querySelector("#title_weather");
 var navbar = document.querySelector("nav");
 
+//var cityButtons = document.querySelector("#city-buttons");
+
 //Clears text in the form textbox when clicked on, usually the previous city searched, 
 //to make way for new search
 function clearText() {
@@ -46,7 +48,7 @@ function getCityInfo(cityId) {
       return res.json();
     })
     .then(function (data) {
-      console.log(data);
+      
       var latitude = data[0].lat;
       var longitude = data[0].lon;
 
@@ -56,10 +58,19 @@ function getCityInfo(cityId) {
 };
 
 function generateButton(cityId) {
-  var savedCity = localStorage.getItem(cityId)
- 
-  navbar.insertAdjacentHTML('afterbegin', savedCity);
- }
+  var savedCity = localStorage.getItem(cityId);
+
+console.log(navbar.innerHTML)
+console.log(savedCity)
+console.log(navbar.innerText)
+
+//   if (savedCity !== navbar.) {
+
+//   } else {
+   navbar.insertAdjacentHTML('afterbegin', savedCity);
+   
+//  }
+};
 
 // fetching the API information with the coordinates determined in getCityCoord(), above, line 32 
 function getWeathArr(latitude, longitude) {
@@ -111,7 +122,7 @@ function getWeathArr(latitude, longitude) {
               <li>Humidity: <strong>${humidity}%</strong></li>
               <li class="weatherDesc d-flex flex-row align-items-center">
                 <p>${iconDesc}</p>
-                <img class="weatherIcon" src="${iconUrl}">
+                <img class="weatherIcon" src="${iconUrl}" alt="icon to match current weather conditions">
               </li>
             </ul>
         </div>
@@ -121,7 +132,7 @@ function getWeathArr(latitude, longitude) {
       currentWeatherContainer.insertAdjacentHTML('afterbegin', currentWeather);
 
 
-      var searchHistory = `<button id="${cityId}" class="search-history btn primaryBtn" 
+      var searchHistory = `<button id="${cityId}" class="search-history btn primaryBtn ml-1" 
       style="background-color: black; color: white" onclick="getCityInfo(${cityId})">${city}</button>`;
       
       localStorage.setItem(cityId, searchHistory);
